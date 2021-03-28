@@ -1,0 +1,64 @@
+.card{
+    padding-left: 2rem; 
+    padding-right: 2rem;
+}
+
+.card-box{
+    position: relative;
+    margin: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    height: 350px;
+    width: 250px;
+    border: 1px solid black;
+    border-radius: 15px;
+  }
+  
+.card-box:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+.card-box-container {
+padding: 2px;
+}
+
+.card-img-lg{
+    border-top-right-radius: 15px;
+    border-top-left-radius:15px;
+    width: 250px;
+    height: 150px;
+}
+.badge-div{
+    height: 150px;
+    position: relative;
+    color: #064E3B;
+}
+
+.card-details{
+    padding-bottom: 4px;
+}
+
+.primary-btn{
+    width: 10rem;
+    padding: 5px;
+    margin-top: 5px;
+    border-style: ridge;
+    border-width:0.05rem;
+    border-radius: 1rem;
+    background-color:white;
+    color:black;
+    text-align: center;
+    text-decoration: none;
+    height: 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.heart-badge {
+    margin-top: -65px;
+    padding-bottom: 20px;
+    /* height:px; */
+    margin-left: 200px;
+    cursor: pointer;
+}
