@@ -1,0 +1,17 @@
+.home-banner{
+    margin-top: 10px;
+    display: flex;
+}
+.home-banner img{
+    display: flex;
+    max-width: 100%;
+}
+
+.trending-products {
+    text-align: left;
+}
+
+h1{
+    margin-bottom: 0px;
+    margin-left: 20px;
+}

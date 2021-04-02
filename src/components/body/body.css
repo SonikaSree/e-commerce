@@ -1,0 +1,65 @@
+.font-custom {
+    font-family: 'Raleway', sans-serif;
+}
+
+.header{
+    /* padding: 60px; */
+    text-align: left;
+    background:white;
+    color: black;
+    font-size: 30px;
+    border: 1px ridge #D1D5DB;
+    box-shadow: 0px 2px 2px 2px#D1D5DB;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoImg{
+    width: 130px;
+    height: 80px;
+    margin: 0;
+}
+
+.header nav ul{
+    margin :0;
+    padding: 0px;
+    display:inline;
+}
+
+.header nav ul button {
+    border: none;
+    margin:10px;
+    cursor: pointer;
+    background-color:white;
+}
+
+
+.navigator{
+    background-color: white;
+    box-shadow: 0px 2px 1px 1px gray;
+}
+.navigator ul{
+    margin :0;
+    padding-left: 0px;
+    display:inline;
+}
+
+.navigator ul button {
+    border: none;
+    margin:10px;
+    border: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+}
+
+.navigator ul button:hover {
+    border-bottom: 1px solid black;
+}

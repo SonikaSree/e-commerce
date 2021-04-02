@@ -1,28 +1,45 @@
-import React, { useReducer } from "react";
+import React, { useReducer} from "react";
 import { dataArray } from "../../thunk";
 import {useCart} from "../cart/cartContext";
+import {useWishList} from "../wishlist/wishlistContext";
 import "../products/products.css";
 
-export function Products() {
+export default function Products() {
+  const {itemsInCart,setItemsInCart} = useCart();
+  const {itemsInWishList,setitemsInWishList} = useWishList();
 
-  const {itemsInCart,setItemsInCart} = useCart()
-  const wishlist = [];
-  const cart = [];
 
-  const addToWishlist = (item) => {
-    // if (wishlist.find((i) => i.id === item.id)) {
-    //   return dispatchWishlist({
-    //     type: "REMOVE_FROM_WISHLIST",
-    //     payload: item.id,
-    //   });
-    // }
-    // dispatchWishlist({ type: "ADD_TO_WISHLIST", payload: item });
+  const addToWishlist = (product) => {
+    if (itemsInWishList.length){
+      let flag= true
+      const newArr= itemsInWishList.map((item)=>{
+        if(item.id === product.id){
+          flag = false
+          if (item.wishlisted){
+            const newItem = {...item,wishlisted:false}
+            return newItem
+          }else{
+            const newItem = {...item,wishlisted:true}
+            return newItem
+          } 
+        }return item
+      })
+      if (!flag){
+        setitemsInWishList((newArr))
+      }
+      if(flag){
+        setitemsInWishList((itemsInWishList)=> [...itemsInWishList,{...product,wishlisted:true}])
+      }
+      
+    }else{
+      setitemsInWishList((itemsInWishList)=> [...itemsInWishList,{...product,wishlisted:true}])
+    }
   };
+
   const cartHandler=(product)=>{
     if(itemsInCart.length){
       let flag= true
       const newArr= itemsInCart.map((item)=>{
-        console.log(item)
         if(item.id === product.id){
           flag = false
           const newItem = {...item,qty:item.qty+1}
@@ -92,14 +109,38 @@ export function Products() {
       .filter(({ inStock }) => (showInventoryAll ? true : inStock));
   }
 
+  // Wishlist Products
+
+  function getWishListedData(filteredData){
+    const wishListedData = filteredData.map((item)=>{
+      const itemInWishList = itemsInWishList.find((wishListItem) =>{
+        if(wishListItem.id === item.id){
+          return wishListItem
+        }return null
+      })
+      if (itemInWishList){
+        const wishListValue = itemInWishList.wishlisted;
+        const newItem = {...item,wishlisted:wishListValue}
+        return newItem
+      }else{
+        const newItem = {...item,wishlisted:false}
+        return newItem
+      }
+    }) 
+    return wishListedData
+
+  }
+
   const sortedData = getSortedData(dataArray, sortBy);
   const filteredData = getFilteredData(sortedData, {
     showFastDeliveryOnly,
     showInventoryAll
   });
+  const wishListedData = getWishListedData(filteredData);
 
   return (
     <>
+    <h1>Products</h1>
       <fieldset>
         <legend>Sort By</legend>
         <label>
@@ -148,13 +189,13 @@ export function Products() {
       </fieldset>
 
       <div className="card" style={{ display: "flex", flexWrap: "wrap" }}>
-        {filteredData.map(
+        {wishListedData.map(
           (item) => (
               <div key={item.id} className={"card-box"}>
                 <div className={"badge-div"}>
                     <img src={item.image} className={"card-img-lg"} alt={item.productName}/>
                     <i onClick={() => addToWishlist(item)}
-                      style={{color:"red"}} className="fa fa-heart fa-2x heart-badge"></i>
+                      style={{color: item.wishlisted && item.wishlisted ? "red" :"white"}} className="fa fa-heart fa-2x fa-border-outer heart-badge"></i>
                 </div>
                 <div className={"card-box-container"}>
                     <h3 className={"card-details"}> {item.name} </h3>
@@ -175,7 +216,7 @@ export function Products() {
                 >
                   {!item.inStock
                     ? "Out of Stock"
-                    : cart.find((i) => i.id === item.id)
+                    : itemsInCart.find((i) => i.id === item.id)
                     ? "Add more"
                     : "Add to cart"}
             </button>

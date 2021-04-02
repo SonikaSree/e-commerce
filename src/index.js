@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {CartProvider} from "./components/cart/cartContext";
+import {WishListProvider} from "./components/wishlist/wishlistContext";
 ReactDOM.render(
   <React.StrictMode>
     <CartProvider>
+      <WishListProvider>
       <App />
+      </WishListProvider>
     </CartProvider>
   </React.StrictMode>,
   document.getElementById('root')
