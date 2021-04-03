@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import {useCart} from "../cart/cartContext";
 import "../products/products.css";
 import "../cart/cart.css";
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 
 
 export default function Cart (){
     const [show, setShow] = useState(false);
-    const router = useRouter()
+    // const router = useRouter()
     
     const handleClose = () => {
       setShow(false)
@@ -76,7 +76,7 @@ export default function Cart (){
       const href = "https://www.google.com/";
       console.log("111111111")
       console.log(href)
-      router.push(href)
+      // router.push(href)
     }
     return (
         <>
