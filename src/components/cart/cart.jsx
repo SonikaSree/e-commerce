@@ -79,18 +79,19 @@ export default function Cart (){
       // router.push(href)
     }
     return (
-        <>
-        <h1>Cart</h1>
-        <div className="cart-sub-total">
-          <h3>Sub Total {subTotal}</h3>
-          <span>
-          <div style={{marginToo:"-100px"}}>
-          <button className="modal-button" onClick={()=>openCheckOutLink()}>Check Out</button>
-          </div>
-          </span> 
-        </div>
-        
-        <div className="card" style={{ display: "flex", flexWrap: "wrap" }}>
+        <div className="cart-body">
+          <div className='cart-header'>
+              <h1>Cart</h1>
+              <div className="cart-sub-total">
+                <h3>Sub Total {subTotal}</h3>
+                <span>
+                <div style={{marginTop:"-70px"}}>
+                <button className="modal-button" onClick={()=>handleShow()}>Check Out</button>
+                </div>
+                </span> 
+              </div>
+          </div>       
+          <div className="card-cart" style={{ display: "flex", flexWrap: "wrap" }}>
         {itemsInCart.map(
           (item) => (
               <div key={item.id} className={"card-box"}>
@@ -110,15 +111,16 @@ export default function Cart (){
                       className={"box-btn"}>+</button>
                       </span>
                     </div>
+                    </div>
                     <div className={"card-details"}>
                     <button onClick={()=> removeItemFromCart(item)} 
                       className={"primary-btn"}>Remove Item</button>
                     </div>
-                </div>
+                
             </div>
           )
         )}
       </div>
-        </>
+    </div>
     )
 }

@@ -1,0 +1,14 @@
+.card-wishlist{
+    padding-top: 20px;
+    max-height: 100%;
+    max-width: 100%;
+    padding-left: 10px; 
+    padding-right: 2rem;
+}
+
+.wishlist-body{
+    padding-top:130px;
+    min-height: 100%;
+    margin-bottom: 0px;
+}
+

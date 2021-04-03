@@ -2,6 +2,7 @@ import React, { useReducer,useState, useEffect } from "react";
 import {useWishList} from "../wishlist/wishlistContext";
 import {useCart} from "../cart/cartContext";
 import "../products/products.css";
+import "../wishlist/wishlist.css";
 
 export default function WishList (){
     const {itemsInCart,setItemsInCart} = useCart();
@@ -65,9 +66,8 @@ export default function WishList (){
       const filteredWishListData = getWishListedData(itemsInWishList);
        
       return (
-        <>
-        <h1>Wish List</h1>    
-          <div className="card" style={{ display: "flex", flexWrap: "wrap" }}>
+        <div className="wishlist-body">
+          <div className="card-wishlist" style={{ display: "flex", flexWrap: "wrap" }}>
             {filteredWishListData.map(
               (item) => (
                   <div key={item.id} className={"card-box"}>
@@ -83,11 +83,14 @@ export default function WishList (){
                         {item.inStock ? "In Stock" : "Out of Stock"}
                         </div>
                         <div className={"card-details"}>{item.level}</div>
+                        <div className={"card-details"}>
                         {item.fastDelivery ? (
                           <div> Fast Delivery </div>
                         ) : (
                           <div> 3 days minimum </div>
                         )}
+                        </div>
+                        </div>
                     <button
                       onClick={() => cartHandler(item)}
                       className="primary-btn"
@@ -99,11 +102,11 @@ export default function WishList (){
                         ? "Add more"
                         : "Add to cart"}
                 </button>
-                    </div>
+                    
                 </div>
               )
             )}
           </div>
-        </>
+        </div>
       );
     }

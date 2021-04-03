@@ -14,6 +14,7 @@ export default function Body() {
   };
   return (
     <div className="App">
+      <div className="app-header">
       <header className="header flex">
         <img src={logo} className="logoImg"></img>
         <span>
@@ -30,11 +31,9 @@ export default function Body() {
           <button className="font-custom" onClick={() => changePage("Home")}>Home</button>
           <button className="font-custom" onClick={() => changePage("Products")}> Products </button>
         </ul>
-        <ul>
-          
-          
-        </ul>
       </nav>
+      </div>
+      
       
       {page === "Cart" ? <Cart/> : page ==="Products" ? 
       <Products/> : page ==="WishList" ? <WishList/> : <Home/>} 

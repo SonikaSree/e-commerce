@@ -139,10 +139,10 @@ export default function Products() {
   const wishListedData = getWishListedData(filteredData);
 
   return (
-    <>
-    <h1>Products</h1>
-      <fieldset>
-        <legend>Sort By</legend>
+    <div className="products-body">
+    <div className="products-sidebar">
+      <div className="product-sort">
+        <h3>Sort</h3>
         <label>
           <input
             type="radio"
@@ -154,6 +154,7 @@ export default function Products() {
           ></input>{" "}
           Price - High to Low
         </label>
+        <br></br>
         <label>
           <input
             type="radio"
@@ -165,11 +166,11 @@ export default function Products() {
           ></input>{" "}
           Price - Low to High
         </label>
-      </fieldset>
-
-      <fieldset style={{ marginTop: "1rem" }}>
-        <legend> Filters </legend>
-        <label>
+      </div>
+      <br></br>
+      <div className="product-filter">
+      <h3>Filter</h3>
+      <label>
           <input
             type="checkbox"
             checked={showInventoryAll}
@@ -177,7 +178,7 @@ export default function Products() {
           />
           Include Out of Stock
         </label>
-
+        <br></br>
         <label>
           <input
             type="checkbox"
@@ -186,9 +187,9 @@ export default function Products() {
           />
           Fast Delivery Only
         </label>
-      </fieldset>
-
-      <div className="card" style={{ display: "flex", flexWrap: "wrap" }}>
+      </div>
+    </div>
+    <div className="card" style={{ display: "flex", flexWrap: "wrap" }}>
         {wishListedData.map(
           (item) => (
               <div key={item.id} className={"card-box"}>
@@ -204,11 +205,14 @@ export default function Products() {
                     {item.inStock ? "In Stock" : "Out of Stock"}
                     </div>
                     <div className={"card-details"}>{item.level}</div>
+                    <div className={"card-details"}>
                     {item.fastDelivery ? (
                       <div> Fast Delivery </div>
                     ) : (
                       <div> 3 days minimum </div>
                     )}
+                    </div>
+                </div>
                 <button
                   onClick={() => cartHandler(item)}
                   className="primary-btn"
@@ -220,11 +224,12 @@ export default function Products() {
                     ? "Add more"
                     : "Add to cart"}
             </button>
-                </div>
+                
             </div>
           )
         )}
       </div>
-    </>
+    </div>
+      
   );
 }

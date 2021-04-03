@@ -1,6 +1,7 @@
 .home-banner{
-    margin-top: 10px;
-    display: flex;
+    /* margin-top: 10px; */
+    /* display: flex; */
+    padding-top:140px;
 }
 .home-banner img{
     display: flex;

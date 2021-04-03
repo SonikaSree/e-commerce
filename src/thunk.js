@@ -2,7 +2,7 @@ import faker from "faker";
 
 faker.seed(123);
 
-export const dataArray = [...Array(5)].map((item) => ({
+export const dataArray = [...Array(15)].map((item) => ({
   id: faker.random.uuid(),
   name: faker.commerce.productName(),
   image: faker.random.image(),
