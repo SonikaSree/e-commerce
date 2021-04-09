@@ -16,111 +16,120 @@ export default function Cart (){
       console.log("Showtime")
       setShow(true)
     };
+ 
     
-    
-    const [subTotal, setSubTotal] = useState(":0");
-    const {itemsInCart,setItemsInCart} = useCart()
+  const [subTotal, setSubTotal] = useState(":0");
+  const {itemsInCart,setItemsInCart} = useCart()
 
-    const getSubTotal = () => {
-      let subTotal = 0
-      let quantity = 0
+  const getSubTotal = () => {
+    let subTotal = 0
+    let quantity = 0
 
-      itemsInCart.map((item)=>{
-        const itemPrice = (item.qty * item.price);
-        quantity = quantity + item.qty;
-        subTotal = subTotal + itemPrice;
-      })
-      return [subTotal, quantity]
-    }
+    itemsInCart.map((item)=>{
+      const itemPrice = (item.qty * item.price);
+      quantity = quantity + item.qty;
+      subTotal = subTotal + itemPrice;
+    })
+    return [subTotal, quantity]
+  }
 
-    useEffect(()=>{
-      const [subTotalValue, totalQuantity] = getSubTotal();
-      const subTotalString   = `(${totalQuantity} Quantity) : Rs. ${subTotalValue} `;
-      setSubTotal(subTotalString)
-    },[itemsInCart])
+  useEffect(()=>{
+    const [subTotalValue, totalQuantity] = getSubTotal();
+    const subTotalString   = `(${totalQuantity} Quantity) : Rs. ${subTotalValue} `;
+    setSubTotal(subTotalString)
+  },[itemsInCart])
 
-    function alterQuantity(alterType,product){
-      switch (alterType) {
-        
-        case "INCREASE":{
-          const newArr= itemsInCart.map((item)=>{
-            if(item.id === product.id){
-              const newItem = {...item,qty:item.qty+1}
+  function alterQuantity(alterType,product){
+    switch (alterType) {
+      
+      case "INCREASE":{
+        const newArr= itemsInCart.map((item)=>{
+          if(item.id === product.id){
+            const newItem = {...item,qty:item.qty+1}
+            return newItem
+          }return item
+        })
+        setItemsInCart((newArr))
+        break;
+      }
+      case "DECREASE":{
+        const newArr= itemsInCart.map((item)=>{
+          if(item.id === product.id){
+            if(item.qty > 1){
+              const newItem = {...item,qty:item.qty-1}
               return newItem
-            }return item
-          })
-          setItemsInCart((newArr))
-          break;
-        }
-        case "DECREASE":{
-          const newArr= itemsInCart.map((item)=>{
-            if(item.id === product.id){
-              if(item.qty > 1){
-                const newItem = {...item,qty:item.qty-1}
-                return newItem
-              }return item              
-            }return item
-          })
-          setItemsInCart((newArr))
-          break;
-        }
-      }      
-    }
+            }return item              
+          }return item
+        })
+        setItemsInCart((newArr))
+        break;
+      }
+    }      
+  }
 
     function removeItemFromCart(product){
       const filteredProductsArray = itemsInCart.filter((item) => item.id !== product.id);
       setItemsInCart((filteredProductsArray))
     }
 
-    function openCheckOutLink(){
-      const href = "https://www.google.com/";
-      console.log("111111111")
-      console.log(href)
-      // router.push(href)
-    }
-    return (
-        <div className="cart-body">
-          <div className='cart-header'>
-              <h1>Cart</h1>
-              <div className="cart-sub-total">
-                <h3>Sub Total {subTotal}</h3>
-                <span>
-                <div style={{marginTop:"-70px"}}>
-                <button className="modal-button" onClick={()=>handleShow()}>Check Out</button>
+  function openCheckOutLink(){
+    const href = "https://www.google.com/";
+    console.log("111111111")
+    console.log(href)
+    // router.push(href)
+  }
+  return (
+      <div className="cart-body">
+        {show && 
+              <div className="modal">
+                <div className="modal_content">
+                  <span className="close" onClick={()=>handleClose()}>
+                    &times;
+                  </span>
                 </div>
-                </span> 
               </div>
-          </div>       
-          <div className="card-cart" style={{ display: "flex", flexWrap: "wrap" }}>
-        {itemsInCart.map(
-          (item) => (
-              <div key={item.id} className={"card-box"}>
-                <div className={"badge-div"}>
-                    <img src={item.image} className={"card-img-lg"} alt={item.productName}/>
-                </div>
-                <div className={"card-box-container"}>
-                    <h3 className={"card-details"}> {item.name} </h3>
-                    <div className={"card-details"}>Price : Rs. {item.price}</div>
-                    <div className={"quantity-details"} >
-                      <h3>Quantity</h3>
-                      <button onClick={()=> alterQuantity("DECREASE",item)} 
-                      className={"box-btn"} disabled={item.qty===1 ? true : false}>-</button>
-                      <span>{item.qty}</span>
-                      <span>
-                      <button onClick={()=> alterQuantity("INCREASE",item)} 
-                      className={"box-btn"}>+</button>
-                      </span>
-                    </div>
-                    </div>
-                    <div className={"card-details"}>
-                    <button onClick={()=> removeItemFromCart(item)} 
-                      className={"primary-btn"}>Remove Item</button>
-                    </div>
-                
+              }
+        <div className='cart-header'>
+            <h1>Cart</h1>
+            <div className="cart-sub-total">
+              <h3>Sub Total {subTotal}</h3>
+              <span>
+              <div style={{marginTop:"-70px"}}>
+              <button className="modal-button" onClick={()=>handleShow()}>Check Out</button>
+              </div>
+              </span>
             </div>
-          )
-        )}
-      </div>
+        </div>
+        <div className="card-cart" style={{ display: "flex", flexWrap: "wrap" }}>
+      {itemsInCart.map(
+        (item) => (
+            <div key={item.id} className={"card-box wishlist"}>
+              <div className={"badge-div"}>
+                  <img src={item.image} className={"card-img-lg"} alt={item.productName}/>
+              </div>
+              <div className={"card-box-container"}>
+                  <h3 className={"card-details"}> {item.name} </h3>
+                  <div className={"card-details"}>Price : Rs. {item.price}</div>
+                  <div className={"quantity-details"} >
+                    <h3>Quantity</h3>
+                    <button onClick={()=> alterQuantity("DECREASE",item)}
+                    className={"box-btn"} disabled={item.qty===1 ? true : false}>-</button>
+                    <span>{item.qty}</span>
+                    <span>
+                    <button onClick={()=> alterQuantity("INCREASE",item)} 
+                    className={"box-btn"}>+</button>
+                    </span>
+                  </div>
+                  </div>
+                  <div className={"card-details"}>
+                  <button onClick={()=> removeItemFromCart(item)}
+                    className={"primary-btn"}>Remove Item</button>
+                  </div>
+              
+          </div>
+        )
+      )}
     </div>
-    )
+  </div>
+  )
 }

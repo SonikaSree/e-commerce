@@ -70,7 +70,7 @@ export default function WishList (){
           <div className="card-wishlist" style={{ display: "flex", flexWrap: "wrap" }}>
             {filteredWishListData.map(
               (item) => (
-                  <div key={item.id} className={"card-box"}>
+                  <div key={item.id} className="card-box wishlist">
                     <div className={"badge-div"}>
                         <img src={item.image} className={"card-img-lg"} alt={item.productName}/>
                         <i onClick={() => addToWishlist(item)}
