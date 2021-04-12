@@ -18,7 +18,8 @@ export default function Cart (){
     };
  
     
-  const [subTotal, setSubTotal] = useState(":0");
+  const [subTotal, setSubTotal] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const {itemsInCart,setItemsInCart} = useCart()
 
   const getSubTotal = () => {
@@ -35,9 +36,11 @@ export default function Cart (){
 
   useEffect(()=>{
     const [subTotalValue, totalQuantity] = getSubTotal();
-    const subTotalString   = `(${totalQuantity} Quantity) : Rs. ${subTotalValue} `;
-    setSubTotal(subTotalString)
+    // const subTotalString   = `(${totalQuantity} Quantity) : Rs. ${subTotalValue} `;
+    setSubTotal(subTotalValue)
+    setQuantity(totalQuantity)
   },[itemsInCart])
+
 
   function alterQuantity(alterType,product){
     switch (alterType) {
@@ -71,28 +74,47 @@ export default function Cart (){
       const filteredProductsArray = itemsInCart.filter((item) => item.id !== product.id);
       setItemsInCart((filteredProductsArray))
     }
-
-  function openCheckOutLink(){
-    const href = "https://www.google.com/";
-    console.log("111111111")
-    console.log(href)
-    // router.push(href)
+  function calculateTotal(){
+    const total = subTotal + ((subTotal * 18)/100)
+    return total
   }
   return (
       <div className="cart-body">
         {show && 
               <div className="modal">
                 <div className="modal_content">
-                  <span className="close" onClick={()=>handleClose()}>
-                    &times;
-                  </span>
+                    <span className="close" onClick={()=>handleClose()}>
+                        &times;
+                    </span>
+                  <div className="checkout-grid">
+                  <div className="checkout-details">
+                    <h4>Total Items : {quantity}</h4>
+                    <h4>Items Price : Rs. {subTotal}</h4>
+                    <h4>GST : 18%</h4>
+                    <h4>Total : Rs. {calculateTotal()}</h4>
+                  </div>
+                  <div className="checkout-form">
+                  <form>
+                    <label for="fname">First Name</label>
+                      <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                      </input>
+                    <label for="fname">Last Name</label>
+                      <input type="text" id="lname" name="lastname" placeholder="Your name..">
+                      </input>
+                    <label for="fname">Address</label>
+                      <input type="text" id="address" name="address" placeholder="Address">
+                      </input>
+                    <input type="submit" value="Submit"></input>
+                  </form>
+                  </div>
+                  </div>
                 </div>
               </div>
               }
         <div className='cart-header'>
             <h1>Cart</h1>
             <div className="cart-sub-total">
-              <h3>Sub Total {subTotal}</h3>
+              <h3>Sub Total ({quantity} Quantity) : Rs. {subTotal} </h3>
               <span>
               <div style={{marginTop:"-70px"}}>
               <button className="modal-button" onClick={()=>handleShow()}>Check Out</button>

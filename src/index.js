@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {CartProvider} from "./components/cart/cartContext";
 import {WishListProvider} from "./components/wishlist/wishlistContext";
+import {BrowserRouter as Router} from 'react-router-dom';
 ReactDOM.render(
   <React.StrictMode>
-    <CartProvider>
-      <WishListProvider>
-      <App />
-      </WishListProvider>
-    </CartProvider>
+     <Router>
+      <CartProvider>
+        <WishListProvider>
+         <App />
+        </WishListProvider>
+      </CartProvider>
+     </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

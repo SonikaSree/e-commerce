@@ -107,11 +107,32 @@
 
 
 .modal-button{
-    height:20px;
-    width: 100px;
-    margin-top: -200px;
-    margin-left: 800px;
+    height:40px;
+    width: 120px;
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-right: 50px;
     border-radius: 10px;
-    background-color: white;
-    color: blueviolet;
+    background-color: black;
+    color: white;
+    cursor:grabbing;
   }
+
+.checkout-details{
+  width: 100%;
+  text-align: left;
+  grid-area: details;
+  width:30%;
+}
+
+.checkout-form{
+  grid-area: address;
+}
+
+.checkout-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:"details address address address" 
+}

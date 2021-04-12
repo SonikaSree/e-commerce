@@ -6,11 +6,14 @@ import Cart from "../cart/cart";
 import Products from "../products/products";
 import WishList from "../wishlist/wishlist";
 import Home from "../home/home";
+import { Routes,Route,useNavigate } from 'react-router-dom';
+
 
 export default function Body() {
   const [page, setPage] = useState("Home");
+  let navigate = useNavigate();
   const changePage = (currentPage) => {
-    setPage(currentPage);
+    navigate(`/${currentPage}`)
   };
   return (
     <div className="App">
@@ -20,24 +23,25 @@ export default function Body() {
         <span>
         <nav>
           <ul>
-            <button onClick={() => changePage("Cart")}><i class="fal fa-shopping-cart fa-3x"></i> </button>
-            <button onClick={() => changePage("WishList")}> <i class="fal fa-heart fa-3x"></i> </button>
+            <button onClick={() => changePage("cart")}><i class="fal fa-shopping-cart fa-3x"></i> </button>
+            <button onClick={() => changePage("wishlist")}> <i class="fal fa-heart fa-3x"></i> </button>
           </ul>
         </nav> 
         </span> 
       </header>
       <nav className="navigator flex">
         <ul>
-          <button className="font-custom" onClick={() => changePage("Home")}>Home</button>
-          <button className="font-custom" onClick={() => changePage("Products")}> Products </button>
+          <button className="font-custom" onClick={() => changePage("")}>Home</button>
+          <button className="font-custom" onClick={() => changePage("products")}> Products </button>
         </ul>
       </nav>
       </div>
-      
-      
-      {page === "Cart" ? <Cart/> : page ==="Products" ? 
-      <Products/> : page ==="WishList" ? <WishList/> : <Home/>} 
-      
+      <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="wishlist" element={<WishList />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="products" element={<Products />} />
+      </Routes>      
     </div>
   );
 }
